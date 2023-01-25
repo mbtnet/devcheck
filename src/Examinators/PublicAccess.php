@@ -3,9 +3,7 @@
 namespace Mbtnet\Devcheck\Examinators;
 
 use Exception;
-use Storage;
 use Mbtnet\Devcheck\Examinators\ExamResult;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage as FacadesStorage;
 
 /**
@@ -35,7 +33,7 @@ class PublicAccess implements ExaminatorInterface
             FacadesStorage::put($testFileName, rand());
             FacadesStorage::delete($testFileName);
         } catch (Exception $exception) {
-            $results[] = 'No access to the public directory from PHP/framework. Verify access to the /public dir.';
+            $results[] = 'No access to the storage directory from PHP/framework. Verify access to the /storage directory.';
         }
 
         $examResult = new ExamResult(
