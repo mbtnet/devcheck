@@ -7,17 +7,15 @@ use Illuminate\Support\Collection;
 /**
  * The standard result of every Exam.
  *
- * Follows: Get/set design pattern. Method chaining.
+ * Follows: Get/set design pattern. Method chaining. Constructor promotion (php8).
  */
 class ExamResult
 {
-    public string $name;
-
-    public string $description;
-
-    public array $messages = [];
-
-    public function __construct(string $name, string $description, array $messages = [])
+    public function __construct(
+        public string $name,
+        public string $class,
+        public string $description,
+        public array $messages = [])
     {
         $this->setName($name);
         $this->setDescription($description);
@@ -39,6 +37,26 @@ class ExamResult
     public function setName($name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of class
+     */
+    public function getClass(): string
+    {
+        return $this->class;
+    }
+
+    /**
+     * Set the value of class
+     *
+     * @return  self
+     */
+    public function setClass($class): self
+    {
+        $this->class = $class;
 
         return $this;
     }
